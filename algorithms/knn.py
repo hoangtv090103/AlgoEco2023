@@ -11,15 +11,18 @@ def main(path="datasets/iris.csv", sample_data=[]):
     X = iris_df.drop("Species", axis=1)
     X = X.drop("Id", axis=1)
     # Convert sample data to pandas DataFrame
-    sample_data = pd.DataFrame([sample_data], columns=X.columns)
+    x_sample_data = pd.DataFrame([sample_data], columns=X.columns)
 
     y = iris_df["Species"]
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2
     )
+
     knn = KNeighborsClassifier(n_neighbors=3, p=2, metric="minkowski")
     knn.fit(X_train, y_train)
-    y_pred = knn.predict(sample_data)
+
+    y_pred = knn.predict(x_sample_data)
     return y_pred[0]
 
 
